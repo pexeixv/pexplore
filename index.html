@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEXplore</title>
+    <link rel="shortcut icon" href="//gavn.in/fav" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <script src="//cdn.tailwindcss.com"></script>
+</head>
+
+<body class="font-['Outfit']">
+    <header class="bg-emerald-950 text-white">
+        <div class="container mx-auto px-5 py-5 min-h-[10vh] flex items-center justify-between max-lg:flex-col">
+            <a href="/">
+                <img src="/img/logo.svg" alt="" class="max-h-10">
+            </a>
+            <nav class="flex items-center max-lg:flex-col">
+                <div class="flex items-center">
+                    <a href="#" class="px-2 py-2">Home</a>
+                    <a href="#" class="px-2 py-2">Book</a>
+                    <div href="#" class="flex items-center gap-1 relative cursor-pointer group px-2 py-2">
+                        <span>Packages</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                        <div
+                            class="flex flex-col items-center gap-2 absolute  bg-emerald-900 top-full left-1/2 -translate-x-1/2 rounded-md p-3 whitespace-nowrap opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto">
+                            <a href="#">United State</a>
+                            <a href="#">India</a>
+                            <a href="#">France</a>
+                            <a href="#">Germany</a>
+                        </div>
+                    </div>
+                    <a href="#" class="px-2 py-2">Services</a>
+                    <a href="#" class="px-2 py-2">Gallery</a>
+                    <a href="#" class="px-2 py-2">About</a>
+                </div>
+                <div class="flex items-center gap-4 ml-8">
+                    <a href="#"
+                        class="bg-white text-emerald-900 py-2 px-4 rounded  hover:bg-white/80 transition-colors duration-300">Login</a>
+                    <a href="#"
+                        class="border-2 py-2 px-4 rounded hover:bg-white/30 transition-colors duration-300">Register</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+
+    <main>
+
+        <section class="bg-cover bg-no-repeat bg-center"
+            style="background-image:url(/img/pexels-vaibhav-kashyap-237741.jpg);">
+            <div
+                class="min-h-[90vh] w-full bg-emerald-950/50 flex flex-col items-center justify-center text-white text-center">
+                <span class="uppercase font-bold tracking-wider text-white/80">Welcome to PEXplore</span>
+                <h1 class="text-6xl lg:text-8xl font-black mt-4" id="heading-transition">Visit España</h1>
+                <a href="#"
+                    class="text-lg mt-8 px-4 py-2 bg-emerald-400 hover:bg-emerald-300 text-emerald-900 font-bold flex items-center gap-2 hover:gap-4 transition-all duration-300">
+                    <span>Book now</span>
+                    <i class="fas fa-chevron-right relative"></i>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        const heading = document.querySelector('#heading-transition')
+        const places = ['España', 'Italia', 'Française', 'Deutschland', 'Holland']
+        let count = 0
+        setInterval(() => {
+            const newHeading = `Visit ${places[count]}`
+            heading.innerText = newHeading
+            count = (count + 1) % places.length
+        }, 700) // 0.2s is way too fast
+    </script>
+
+</body>
+
+</html>
