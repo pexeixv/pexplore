@@ -40,10 +40,11 @@
                     <a href="#" class="px-2 py-2">About</a>
                 </div>
                 <div class="flex items-center gap-4 ml-8">
-                    <a href="#"
-                        class="px-4 py-2 transition-colors duration-300 bg-white rounded text-emerald-900 hover:bg-white/80">Login</a>
-                    <a href="#"
-                        class="px-4 py-2 transition-colors duration-300 border-2 rounded hover:bg-white/30">Register</a>
+                    <button href="#"
+                        class="px-4 py-2 transition-colors duration-300 bg-white rounded text-emerald-900 hover:bg-white/80"
+                        data-modal="login">Login</button>
+                    <button href="#" class="px-4 py-2 transition-colors duration-300 border-2 rounded hover:bg-white/30"
+                        data-modal="register">Register</button>
                 </div>
             </nav>
         </div>
@@ -528,6 +529,101 @@
         </div>
     </section>
 
+    <section id="register" data-modal="register" class="fixed top-0 left-0 hidden w-full h-full p-16 bg-black/60">
+        <div class="relative flex flex-col w-full max-w-2xl gap-4 p-8 mx-auto bg-white rounded-lg lg:p-16 h-fit">
+            <div class="flex items-center justify-between fa-2x">
+                <h2 class="text-3xl font-black lg:text-5xl">Register</h2>
+                <button data-modal="register">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form class="flex flex-col gap-4">
+                <div class="flex flex-col gap-2">
+                    <label for="fullname">Full Name</label>
+                    <input placeholder="John Doe" class="px-2 py-1 border rounded" type="text" name="fullname"
+                        id="fullname" required />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="contact">Contact</label>
+                    <input placeholder="123-456-7890" class="px-2 py-1 border rounded" type="tel" name="contact"
+                        id="contact" required />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="dob">Date of Birth</label>
+                    <input class="px-2 py-1 border rounded" type="date" name="dob" id="dob" required />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="email">Email ID</label>
+                    <input placeholder="username@email.com" class="px-2 py-1 border rounded" type="email" name="email"
+                        id="email" required />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="password">Password</label>
+                    <input placeholder="********" class="px-2 py-1 border rounded" type="password" name="password"
+                        id="password" required title="Make sure to use proper email format"
+                        pattern="^[a-zA-Z0-9!@#\$%\^\&*_=+-]{8,12}$" />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="gender">Gender</label>
+                    <select class="px-2 py-1 border rounded" name="gender" id="gender" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button
+                    class="flex items-center gap-2 px-4 py-2 mt-2 text-lg font-bold transition-all duration-300 w-fit bg-emerald-400 hover:bg-emerald-300 text-emerald-900 hover:gap-4">
+                    <span>Register</span>
+                    <i class="relative fas fa-chevron-right"></i>
+                </button>
+            </form>
+            <p>
+                Already have an account?
+                <button data-modal="login" class="font-bold underline ">Login</button>
+            </p>
+
+        </div>
+    </section>
+
+
+
+    <section id="login" data-modal="login" class="fixed top-0 left-0 hidden w-full h-full p-16 bg-black/60">
+        <div class="relative flex flex-col w-full max-w-2xl gap-4 p-8 mx-auto bg-white rounded-lg lg:p-16 h-fit">
+            <div class="flex items-center justify-between fa-2x">
+                <h2 class="text-3xl font-black lg:text-5xl">Login</h2>
+                <button data-modal="login">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form class="flex flex-col gap-4">
+                <div class="flex flex-col gap-2">
+                    <label for="email">Email ID</label>
+                    <input placeholder="username@email.com" class="px-2 py-1 border rounded" type="email" name="email"
+                        id="email" required />
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="password">Password</label>
+                    <input placeholder="********" class="px-2 py-1 border rounded" type="password" name="password"
+                        id="password" required title="Make sure to use proper email format"
+                        pattern="/^[a-zA-Z0-9!@#\$%\^\&*_=+-]{8,12}$/g" />
+                </div>
+                <button
+                    class="flex items-center gap-2 px-4 py-2 mt-2 text-lg font-bold transition-all duration-300 w-fit bg-emerald-400 hover:bg-emerald-300 text-emerald-900 hover:gap-4">
+                    <span>Log in</span>
+                    <i class="relative fas fa-chevron-right"></i>
+                </button>
+            </form>
+            <p>
+                Don't have an account?
+                <button data-modal="register" class="font-bold underline ">Register</button>
+            </p>
+        </div>
+    </section>
+
+
+
+
+
 
     </main>
 
@@ -585,8 +681,25 @@
         bookingForm.addEventListener('submit', (e) =>
             alert('Booking successful!'))
 
+        const modalButtons = document.querySelectorAll('button[data-modal]')
+        const modals = document.querySelectorAll('section[data-modal]')
+        modalButtons.forEach(b => b.addEventListener('click', (e) => {
+            modals.forEach(m => {
+                m.classList.remove('grid')
+                m.classList.add('hidden')
+            })
+            modalId = e.target.dataset.modal
+            modal = document.querySelector(`section[data-modal="${modalId}"]`)
+            modal.classList.toggle('hidden')
+            modal.classList.toggle('grid')
+        }))
 
-
+        modals.forEach(m => m.addEventListener('click', (e) => {
+            if (m === e.target) {
+                m.classList.toggle('grid')
+                m.classList.toggle('hidden')
+            }
+        }))
 
 
     </script>
