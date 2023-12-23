@@ -23,9 +23,9 @@
             <nav class="flex items-center max-lg:flex-col">
                 <div class="flex items-center">
                     <a href="#" class="px-2 py-2">Home</a>
-                    <a href="#" class="px-2 py-2">Book</a>
-                    <div href="#" class="relative flex items-center gap-1 px-2 py-2 cursor-pointer group">
-                        <span>Packages</span>
+                    <a href="#book" class="px-2 py-2">Book</a>
+                    <div class="relative flex items-center gap-1 px-2 py-2 cursor-pointer group">
+                        <a href="#packages">Packages</a>
                         <i class="text-xs fas fa-chevron-down"></i>
                         <div
                             class="absolute flex flex-col items-center gap-2 p-3 -translate-x-1/2 rounded-md opacity-0 pointer-events-none bg-emerald-900 top-full left-1/2 whitespace-nowrap group-hover:opacity-100 group-hover:pointer-events-auto">
@@ -35,9 +35,9 @@
                             <a href="#">Germany</a>
                         </div>
                     </div>
-                    <a href="#" class="px-2 py-2">Services</a>
-                    <a href="#" class="px-2 py-2">Gallery</a>
-                    <a href="#" class="px-2 py-2">About</a>
+                    <a href="#services" class="px-2 py-2">Services</a>
+                    <a href="#gallery" class="px-2 py-2">Gallery</a>
+                    <a href="#about" class="px-2 py-2">About</a>
                 </div>
                 <div class="flex items-center gap-4 ml-8">
                     <button href="#"
@@ -124,7 +124,7 @@
     </section>
 
 
-    <section class="bg-emerald-50">
+    <section id="packages" class="bg-emerald-50">
         <div class="container relative px-5 py-10 mx-auto lg:py-20">
             <h2 class="text-3xl font-black text-center lg:text-5xl">Packages</h2>
             <div class="grid gap-8 mt-8 lg:gap-16 lg:grid-cols-3 lg:mt-16">
@@ -404,7 +404,7 @@
     </section>
 
 
-    <section class="bg-emerald-50">
+    <section id="services" class="bg-emerald-50">
         <div class="container px-5 py-10 mx-auto lg:py-20">
             <h2 class="text-3xl font-black text-center lg:text-5xl">Services</h2>
             <div
@@ -459,7 +459,7 @@
     </section>
 
 
-    <section class="bg-emerald-50">
+    <section id="gallery" class="bg-emerald-50">
         <div class="container px-5 py-10 mx-auto lg:py-20">
             <h2 class="text-3xl font-black text-center lg:text-5xl">Gallery</h2>
             <div class="grid max-w-6xl grid-cols-2 mx-auto mt-12 lg:mt-16 lg:grid-cols-3 xl:grid-cols-4">
@@ -492,7 +492,7 @@
     </section>
 
 
-    <section class="bg-emerald-50">
+    <section id="about" class="bg-emerald-50">
         <div class="container grid px-5 py-10 mx-auto lg:gap-12 lg:py-20 lg:grid-cols-2">
             <div>
                 <img src="/img/Flying around the world-rafiki.svg" alt=""
@@ -500,7 +500,8 @@
             </div>
             <div>
                 <h2 class="text-3xl font-black text-center lg:text-5xl">About us</h2>
-                <p class="mt-8 text-justify lg:mt-12">At PEXplore, we redefine the way you experience the world!
+                <p id="counter-start" class="mt-8 text-justify lg:mt-12">At PEXplore, we redefine the way you experience
+                    the world!
                     PEXplore isn't
                     just a platform; it's a community of like-minded individuals who share a love for exploration. Our
                     innovative online tour management company offers a diverse range of curated journeys that cater to
@@ -513,15 +514,15 @@
                 <h3 class="sr-only">Stats</h3>
                 <div class="grid grid-cols-3 gap-3 mt-12">
                     <div class="text-center">
-                        <h4 class="text-2xl font-black lg:text-4xl">15+</h4>
+                        <h4 class="text-2xl font-black counter lg:text-4xl">15</h4>
                         <p class="uppercase">Tour Destinations</p>
                     </div>
                     <div class="text-center">
-                        <h4 class="text-2xl font-black lg:text-4xl">30+</h4>
+                        <h4 class="text-2xl font-black counter lg:text-4xl">30</h4>
                         <p class="uppercase">Expert Guides</p>
                     </div>
                     <div class="text-center">
-                        <h4 class="text-2xl font-black lg:text-4xl">600+</h4>
+                        <h4 class="text-2xl font-black counter lg:text-4xl">600</h4>
                         <p class="uppercase">Happy Explorers</p>
                     </div>
                 </div>
@@ -667,7 +668,7 @@
             const newHeading = `Visit ${places[count]}`
             heading.innerText = newHeading
             count = (count + 1) % places.length
-        }, 700) // 0.2s is way too fast
+        }, 700)
         const startDate = document.querySelector('#startDate')
         const endDate = document.querySelector('#endDate')
         const bookingForm = document.querySelector('#bookingForm')
@@ -701,6 +702,27 @@
             }
         }))
 
+        const startCounting = target => {
+            const endValue = parseInt(target.innerText, 10);
+            let current = 0;
+            const duration = 2000;
+            const step = Math.ceil(endValue / (duration / 50));
+            const interval = setInterval(() => {
+                current += step;
+                target.textContent = `${Math.min(current, endValue)}+`;
+                if (current >= endValue) clearInterval(interval);
+            }, 50);
+        };
+
+        const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                document.querySelectorAll('.counter').forEach(counter => startCounting(counter));
+                observer.disconnect();
+            }
+        }));
+
+        const counterStart = document.querySelector('#counter-start');
+        observer.observe(counterStart);
 
     </script>
 
